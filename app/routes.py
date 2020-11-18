@@ -1,9 +1,8 @@
 from .controllers.products import ProductsApi, ProductApi
 from .controllers.users import LoginApi, RegisterApi, UserApi
-from .config import api
 
 
-def resources():
+def resources(api):
     api.add_resource(ProductsApi, '/products')
     api.add_resource(ProductApi, '/product/<int:_id>')
     api.add_resource(LoginApi, '/login')

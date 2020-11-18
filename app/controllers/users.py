@@ -1,4 +1,4 @@
-from ..models.User import user_schema, User
+from ..models.User import user_schema, User, jwt
 from ..config import db
 from flask_restful import Resource
 from flask import request
@@ -15,15 +15,13 @@ class LoginApi(Resource):
         if password is None:
             return {'message': 'Password must be filled'}
 
-        user = User.query.get(email)
+        user = User.query.filter_by(email=email).first()
         if user is None:
             return {'message': 'Email not registered yet'}
-
-        isMatch = check_password_hash(user['password'], password)
+        isMatch = check_password_hash(user.password, password)
         if isMatch is False:
             return {'message': 'Password is invalid'}
-
-        return {'message': 'Success login to account', 'data': user}
+        return {'message': 'Success login to account'}
 
 
 class RegisterApi(Resource):
@@ -39,7 +37,7 @@ class RegisterApi(Resource):
         new_user = User(email, hash_password)
         db.session.add(new_user)
         db.session.commit()
-        return {'message': 'Success register new account', 'data': new_user}
+        return {'message': 'Success register new account'}
 
 
 class UserApi(Resource):

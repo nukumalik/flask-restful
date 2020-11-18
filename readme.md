@@ -39,6 +39,32 @@ $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
+#### Init Flask Env
+
+```
+$ export FLASK_APP=run.py
+```
+
+#### Migration
+
+```
+$ flask db init
+$ flask db migrate
+$ flask db upgrade
+```
+
+#### Running app
+
+```
+$ flask run
+```
+
+or
+
+```
+$ python run.py
+```
+
 </br>
 
 ## Packages
@@ -47,3 +73,5 @@ $ pip install -r requirements.txt
 - flask-sqlalchemy
 - flask-marshmallow
 - flask-restful
+- flask-migrate
+- flask-jwt

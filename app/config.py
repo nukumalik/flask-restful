@@ -1,12 +1,11 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from flask_restful import Api
+from flask_migrate import Migrate
 
 
 db = SQLAlchemy()
 ma = Marshmallow()
-api = Api()
 
 
 def init_db(app):
@@ -15,11 +14,8 @@ def init_db(app):
         os.path.join(basedir, 'db.sqlite')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
+    Migrate(app, db)
 
 
 def init_marshmallow(app):
     ma.init_app(app)
-
-
-def init_api(app):
-    api.init_app(app)
