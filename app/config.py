@@ -1,10 +1,12 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_restful import Api
 
 
 db = SQLAlchemy()
 ma = Marshmallow()
+api = Api()
 
 
 def init_db(app):
@@ -17,3 +19,7 @@ def init_db(app):
 
 def init_marshmallow(app):
     ma.init_app(app)
+
+
+def init_api(app):
+    api.init_app(app)
