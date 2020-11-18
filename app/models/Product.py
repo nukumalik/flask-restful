@@ -7,17 +7,19 @@ class Product(db.Model):
     description = db.Column(db.String(200))
     price = db.Column(db.Float)
     qty = db.Column(db.Float)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, name, description, price, qty):
+    def __init__(self, name, description, price, qty, user_id):
         self.name = name
         self.description = description
         self.price = price
         self.qty = qty
+        self.user_id = user_id
 
 
 class ProductSchema(ma.Schema):
     class Meta:
-        fields = ('name', 'description', 'price', 'qty')
+        fields = ('name', 'description', 'price', 'qty', 'user_id')
 
 
 product_schema = ProductSchema()
