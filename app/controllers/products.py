@@ -28,3 +28,29 @@ class ProductApi(Resource):
     def get(self, _id):
         product = Product.query.get(_id)
         return product_schema.jsonify(product)
+
+    def put(self, _id):
+        product = Product.query.get(_id)
+        if product is None:
+            return {'message': 'Product is not found'}
+
+        name = request.json['name']
+        description = request.json['description']
+        price = request.json['price']
+        qty = request.json['qty']
+
+        product.name = name
+        product.description = description
+        product.price = price
+        product.qty = qty
+        db.session.commit()
+        return product_schema.jsonify(product)
+
+    def delete(self, _id):
+        product = Product.query.get(_id)
+        if product is None:
+            return {'message': 'Product is not found'}
+
+        db.session.delete(product)
+        db.session.commit()
+        return {'message': 'Success remove product'}

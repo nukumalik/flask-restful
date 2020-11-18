@@ -15,3 +15,4 @@ def create_app(app):
 
     # Routes
     resources(api)
+    return app
