@@ -15,12 +15,9 @@ class ProductsApi(Resource):
         description = request.json['description']
         price = request.json['price']
         qty = request.json['qty']
-
         new_product = Product(name, description, price, qty)
-
         db.session.add(new_product)
         db.session.commit()
-
         return product_schema.jsonify(new_product)
 
 
@@ -33,7 +30,6 @@ class ProductApi(Resource):
         product = Product.query.get(_id)
         if product is None:
             return {'message': 'Product is not found'}
-
         name = request.json['name']
         description = request.json['description']
         price = request.json['price']
@@ -50,7 +46,6 @@ class ProductApi(Resource):
         product = Product.query.get(_id)
         if product is None:
             return {'message': 'Product is not found'}
-
         db.session.delete(product)
         db.session.commit()
         return {'message': 'Success remove product'}
