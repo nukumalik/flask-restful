@@ -74,4 +74,4 @@ $ python run.py
 - flask-marshmallow
 - flask-restful
 - flask-migrate
-- flask-jwt
+- flask-jwt-extended

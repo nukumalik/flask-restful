@@ -1,8 +1,10 @@
-from ..models.User import user_schema, User, jwt
+from ..models.User import user_schema, User
 from ..config import db
 from flask_restful import Resource
 from flask import request
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import timedelta
 
 
 # Login
@@ -21,7 +23,10 @@ class LoginApi(Resource):
         isMatch = check_password_hash(user.password, password)
         if isMatch is False:
             return {'message': 'Password is invalid'}
-        return {'message': 'Success login to account'}
+        expires_delta = timedelta(days=1)
+        access_token = create_access_token(
+            identity=user.id, fresh=True, expires_delta=expires_delta)
+        return {'message': 'Success login to account', 'access_token': access_token}
 
 
 class RegisterApi(Resource):
@@ -41,7 +46,9 @@ class RegisterApi(Resource):
 
 
 class UserApi(Resource):
-    def put(self, _id):
+    @jwt_required
+    def put(self):
+        _id = get_jwt_identity()
         user = User.query.get(_id)
         if user is None:
             return {'message': 'User is not found'}
@@ -61,7 +68,9 @@ class UserApi(Resource):
         db.session.commit()
         return user_schema.jsonify(user)
 
-    def delete(self, _id):
+    @jwt_required
+    def delete(self):
+        _id = get_jwt_identity()
         user = User.query.get(_id)
         if user is None:
             return {'message': 'User is not found'}
