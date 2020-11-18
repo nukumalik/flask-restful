@@ -14,8 +14,6 @@ def init_db(app):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
-    return db
-
 
 def init_marshmallow(app):
     ma.init_app(app)
