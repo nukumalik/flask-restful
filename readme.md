@@ -33,7 +33,7 @@ $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
-#### Init Flask Env
+#### Init Flask App
 
 ```
 $ export FLASK_APP=run.py
