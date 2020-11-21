@@ -15,16 +15,10 @@ $ git clone https://github.com/nukumalik/flask-restful.git
 $ cd flask-restful
 ```
 
-#### Install virtualenv if you don't installed yet,
-
-```
-$ sudo apt install python3-virtualenv
-```
-
 #### Create new env
 
 ```
-$ python3 -m virtualenv venv
+$ python3 -m venv venv
 ```
 
 #### Activate your env
